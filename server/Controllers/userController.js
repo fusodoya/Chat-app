@@ -87,7 +87,37 @@ const loginUser = async (req, res) => {
   }
 };
 
+const findUser = async (req, res) => {
+  const userId = req.params.userID;
+  try {
+    const user = await userModels.findById(userId);
+    if (!user) {
+      return res.status(400).json({ msg: "User does not exist" });
+    }
+    res.status(200).json({
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const getUsers = async (req, res) => {
+  try {
+    const users = await userModels.find();
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
+  findUser,
+  getUsers,
 };
