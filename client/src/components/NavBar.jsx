@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <Navbar bg="dark" className="mb4" style={{ height: "3.75rem" }}>
+    <Navbar bg="black" className="mb4" style={{ height: "3.75rem" }}>
       <Container>
         <h2>
           <Link to="/" className="text-white text-decoration-none">

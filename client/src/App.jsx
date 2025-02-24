@@ -10,17 +10,17 @@ import NavBar from "./components/Navbar";
 
 function App() {
   return (
-    <>
+    <div className="d-flex flex-column vh-100 bg-dark">
       <NavBar />
-      <Container className="text-secondary bg-dark">
+      <Container>
         <Routes>
-          <Route path="/" element={<Chat />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/*" element={<Navigate to="/" />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </Container>
-    </>
+    </div>
   );
 }
 
