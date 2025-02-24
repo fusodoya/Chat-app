@@ -20,7 +20,7 @@ const Login = () => {
               <Form.Control type="email" placeholder="Email" />
               <Form.Control type="password" placeholder="Password" />
               <Button variant="primary" type="submit">
-                Register
+                Login
               </Button>
               <Alert variant="danger">Error</Alert>
             </Stack>

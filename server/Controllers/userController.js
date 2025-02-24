@@ -15,18 +15,18 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-      return res.status(400).json({ msg: "Please enter all fields" });
+      return res.status(400).json({ message: "Please enter all fields" });
     }
     if (!validator.isEmail(email)) {
-      return res.status(400).json({ msg: "Invalid email" });
+      return res.status(400).json({ message: "Invalid email" });
     }
     // if (!validator.isStrongPassword(password)) {
-    //   return res.status(400).json({ msg: "Password is not strong enough" });
+    //   return res.status(400).json({ message: "Password is not strong enough" });
     // }
 
     let user = await userModels.findOne({ email });
     if (user) {
-      return res.status(400).json({ msg: "User already exists" });
+      return res.status(400).json({ message: "User already exists" });
     }
 
     user = new userModels({
@@ -59,18 +59,18 @@ const loginUser = async (req, res) => {
 
   try {
     if (!email || !password) {
-      return res.status(400).json({ msg: "Please enter all fields" });
+      return res.status(400).json({ message: "Please enter all fields" });
     }
 
     const user = await userModels.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ msg: "User does not exist" });
+      return res.status(400).json({ message: "User does not exist" });
     }
 
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      return res.status(400).json({ msg: "Password is not correct" });
+      return res.status(400).json({ message: "Password is not correct" });
     }
 
     const token = createToken(user._id);
@@ -92,7 +92,7 @@ const findUser = async (req, res) => {
   try {
     const user = await userModels.findById(userId);
     if (!user) {
-      return res.status(400).json({ msg: "User does not exist" });
+      return res.status(400).json({ message: "User does not exist" });
     }
     res.status(200).json({
       user: {
