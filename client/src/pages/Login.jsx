@@ -1,9 +1,14 @@
 import { Row, Col, Form, Button, Stack, Alert } from "react-bootstrap";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
+  const { loginInfo, updateLoginInfo, loginUser, loginError, loginLoading } =
+    useContext(AuthContext);
+
   return (
     <div className="flex-grow-1">
-      <Form>
+      <Form onSubmit={loginUser}>
         <Row
           style={{
             flexGrow: 1,
@@ -17,12 +22,31 @@ const Login = () => {
                 <h3 className="text-white">Login</h3>
               </Form.Label>
 
-              <Form.Control type="email" placeholder="Email" />
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                onChange={(e) =>
+                  updateLoginInfo({ ...loginInfo, email: e.target.value })
+                }
+              />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) =>
+                  updateLoginInfo({
+                    ...loginInfo,
+                    password: e.target.value,
+                  })
+                }
+              />
               <Button variant="primary" type="submit">
-                Login
+                {loginLoading ? "Logging in" : "Login"}
               </Button>
-              <Alert variant="danger">Error</Alert>
+              {loginError && (
+                <Alert variant="danger">
+                  {loginError?.message ?? "An error occurred!"}
+                </Alert>
+              )}
             </Stack>
           </Col>
         </Row>
